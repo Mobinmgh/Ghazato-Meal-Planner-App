@@ -1,0 +1,6 @@
+{
+  "name": "غذاتو — دستیار هوشمند تغذیه ایرانی",
+  "description": "غذاتو با استفاده از هوش مصنوعی، برنامه غذایی شخصی‌سازی شده بر اساس ذائقه ایرانی به شما می‌دهد.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
