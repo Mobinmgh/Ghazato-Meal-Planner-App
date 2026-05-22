@@ -3,11 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/src/components/ui/Button";
 import { Card } from "@/src/components/ui/Card";
 import { motion, AnimatePresence } from "motion/react";
-import { Leaf, Sparkles, User, Star, Bell, Brain, ShoppingBag, History, PlusCircle, Zap, ChevronRight, ChevronLeft, Globe, Share2 } from "lucide-react";
+import { Leaf, Sparkles, User, Star, Bell, Brain, ShoppingBag, History, PlusCircle, ChevronRight, ChevronLeft, Globe, Share2 } from "lucide-react";
 import { storage } from "@/src/lib/storage";
 import { convertToPersianNumbers, cn } from "@/src/lib/utils";
 import { auth } from "@/src/lib/auth";
 import { BottomNav } from "@/src/components/layout/BottomNav";
+import { isDemoMode } from "@/src/lib/demo";
+import { landingFallbackData } from "@/src/lib/landingFallback";
 
 const HERO_IMAGES = [
   "/input_file_6.png",
@@ -28,8 +30,7 @@ const BADGES = [
 export default function Landing() {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<any>(landingFallbackData);
 
   useEffect(() => {
     if (storage.getProfile() && auth.isLoggedIn()) {
@@ -37,18 +38,40 @@ export default function Landing() {
     }
 
     const fetchData = async () => {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 8_000);
+
       try {
-        const response = await fetch("/api/landing-data");
+        const response = await fetch("/api/landing-data", {
+          headers: { Accept: "application/json" },
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Landing data request failed: ${response.status}`);
+        }
+
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          throw new Error("Landing data response was not JSON");
+        }
+
         const json = await response.json();
+        if (!json?.features?.length || !json?.testimonials?.length || !json?.dailySuggestion) {
+          throw new Error("Landing data response was incomplete");
+        }
+
         setData(json);
       } catch (error) {
-        console.error("Failed to fetch landing data", error);
+        console.warn("Using demo landing data fallback", error);
       } finally {
-        setLoading(false);
+        window.clearTimeout(timeoutId);
       }
     };
 
-    fetchData();
+    if (!isDemoMode) {
+      fetchData();
+    }
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
@@ -68,20 +91,6 @@ export default function Landing() {
       });
     }
   };
-
-  if (loading || !data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f9fafb]">
-        <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="text-primary-600"
-        >
-          <Zap className="w-8 h-8" />
-        </motion.div>
-      </div>
-    );
-  }
 
   const iconMap: Record<string, any> = {
     brain: <Brain className="w-6 h-6" />,
