@@ -1,7 +1,7 @@
 import { cloneDemoMealPlan, cloneDemoShoppingList } from "@/src/lib/demoFallbacks";
+import { isDemoMode } from "@/src/lib/demo";
 
 const REQUEST_TIMEOUT_MS = 15_000;
-const isDemoMode = import.meta.env.VITE_DEMO_MODE === "true";
 
 async function postJsonWithTimeout(path: string, body: unknown): Promise<any> {
   const controller = new AbortController();

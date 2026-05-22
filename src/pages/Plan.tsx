@@ -8,6 +8,7 @@ import { Button } from "@/src/components/ui/Button";
 import { DashboardLayout } from "@/src/components/layout/DashboardLayout";
 import { Modal } from "@/src/components/ui/Modal";
 import { DAYS_OF_WEEK } from "@/src/lib/constants";
+import { isDemoMode } from "@/src/lib/demo";
 import { cn, convertToPersianNumbers } from "@/src/lib/utils";
 import { RefreshCw, Zap, Coffee, Sun, Moon, Apple, ChevronLeft, AlertTriangle } from "lucide-react";
 
@@ -98,8 +99,6 @@ export default function Plan() {
   };
 
   const handleSubscribe = async () => {
-    const isDemoMode = import.meta.env.VITE_DEMO_MODE === "true";
-
     if (isDemoMode) {
       storage.setSubscribed(true);
       setIsPaywallOpen(false);

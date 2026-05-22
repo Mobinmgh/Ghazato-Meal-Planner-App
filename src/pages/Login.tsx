@@ -4,10 +4,9 @@ import { Button } from "@/src/components/ui/Button";
 import { Leaf, Loader2, ChevronRight } from "lucide-react";
 import { auth } from "@/src/lib/auth";
 import { storage } from "@/src/lib/storage";
+import { DEMO_OTP_CODE, isDemoMode } from "@/src/lib/demo";
 
 const REQUEST_TIMEOUT_MS = 15_000;
-const DEMO_OTP_CODE = "123456";
-const isDemoMode = import.meta.env.VITE_DEMO_MODE !== "false";
 
 async function postJsonWithTimeout(path: string, body: unknown) {
   const controller = new AbortController();
