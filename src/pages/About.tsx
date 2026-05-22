@@ -4,7 +4,7 @@ import { Card } from "@/src/components/ui/Card";
 export default function About() {
   return (
     <DashboardLayout title="درباره ما">
-      <div className="max-w-2xl mx-auto space-y-6 pb-20">
+      <div className="space-y-6 pb-20">
         <section className="bg-primary-600 text-white px-6 py-10 rounded-2xl overflow-hidden relative">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
           <div className="relative z-10">
@@ -18,7 +18,7 @@ export default function About() {
           </div>
         </section>
 
-        <main className="space-y-4">
+        <main className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <Card className="flex flex-row items-start gap-4 p-5">
             <div className="text-2xl w-10 shrink-0 mt-0.5">🍲</div>
             <div>

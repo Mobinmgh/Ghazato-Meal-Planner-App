@@ -131,7 +131,7 @@ export default function ShoppingList() {
 
   return (
     <DashboardLayout title="لیست خرید هفته">
-      <div className="max-w-2xl mx-auto space-y-8">
+      <div className="space-y-8">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center text-white">
             <ShoppingBasket className="w-7 h-7" />
@@ -142,7 +142,7 @@ export default function ShoppingList() {
           </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {list.categories.map((cat: any) => (
             <div key={cat.name} className="space-y-4">
               <h3 className="text-lg font-bold text-primary-900 border-r-4 border-primary-600 pr-3">{cat.name}</h3>

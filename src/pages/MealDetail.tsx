@@ -1,52 +1,58 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
-import { DashboardLayout } from "@/src/components/layout/DashboardLayout"
-import { Card } from "@/src/components/ui/Card"
-import { ChevronRight, Clock, Users, ChefHat, 
-         Flame, Zap, Wheat, Droplets } from "lucide-react"
-import { convertToPersianNumbers, cn } from "@/src/lib/utils"
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { DashboardLayout } from "@/src/components/layout/DashboardLayout";
+import { Card } from "@/src/components/ui/Card";
+import {
+  ChevronRight,
+  Clock,
+  Users,
+  ChefHat,
+  Flame,
+  Zap,
+  Wheat,
+  Droplets,
+} from "lucide-react";
+import { convertToPersianNumbers, cn } from "@/src/lib/utils";
 
 interface MealData {
-  name: string
-  calories: number
-  note: string
-  prep_time: string
-  cook_time: string
-  servings: number
-  difficulty: string
-  ingredients: { name: string; amount: string; unit: string }[]
-  steps: string[]
-  nutrition: { protein: number; carbs: number; fat: number; fiber: number }
-  tips: string
+  name: string;
+  calories: number;
+  note: string;
+  prep_time: string;
+  cook_time: string;
+  servings: number;
+  difficulty: string;
+  ingredients: { name: string; amount: string; unit: string }[];
+  steps: string[];
+  nutrition: { protein: number; carbs: number; fat: number; fiber: number };
+  tips: string;
 }
 
 export default function MealDetail() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const meal = location.state?.meal as MealData
-  const mealLabel = location.state?.label as string
+  const location = useLocation();
+  const navigate = useNavigate();
+  const meal = location.state?.meal as MealData;
+  const mealLabel = location.state?.label as string;
 
   useEffect(() => {
     if (!meal) {
-      navigate("/plan")
+      navigate("/plan");
     }
-  }, [meal, navigate])
+  }, [meal, navigate]);
 
-  if (!meal) return null
+  if (!meal) return null;
 
   return (
     <DashboardLayout title={meal.name}>
-      <div className="max-w-2xl mx-auto space-y-6 pb-12 rtl">
-        {/* Back button (Mobile only) */}
-        <button 
-          onClick={() => navigate(-1)} 
+      <div className="space-y-6 pb-12 rtl">
+        <button
+          onClick={() => navigate(-1)}
           className="flex items-center gap-1 text-sm font-bold text-gray-500 mb-4 md:hidden"
         >
           <ChevronRight className="w-4 h-4" />
           بازگشت
         </button>
 
-        {/* Hero Card */}
         <Card className="bg-primary-600 text-white rounded-2xl p-6 border-none relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
           <div className="relative z-10">
@@ -81,10 +87,9 @@ export default function MealDetail() {
           </div>
         </Card>
 
-        {/* Nutrition Info */}
         <div>
           <h3 className="font-black text-base text-gray-900 mb-3">ارزش غذایی</h3>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
               { label: "پروتئین", value: meal.nutrition.protein, color: "text-blue-600", icon: Zap },
               { label: "کربوهیدرات", value: meal.nutrition.carbs, color: "text-orange-500", icon: Wheat },
@@ -92,6 +97,7 @@ export default function MealDetail() {
               { label: "فیبر", value: meal.nutrition.fiber, color: "text-green-600", icon: Zap },
             ].map((nut) => (
               <div key={nut.label} className="bg-white rounded-2xl p-3 text-center border border-gray-100">
+                <nut.icon className={cn("w-5 h-5 mx-auto mb-1", nut.color)} />
                 <p className={cn("text-lg font-black", nut.color)}>{convertToPersianNumbers(nut.value)}</p>
                 <p className="text-[10px] text-gray-400">گرم</p>
                 <p className="text-xs text-gray-500 mt-0.5">{nut.label}</p>
@@ -100,37 +106,38 @@ export default function MealDetail() {
           </div>
         </div>
 
-        {/* Ingredients */}
-        <div>
-          <h3 className="font-black text-base text-gray-900 mb-3">مواد لازم</h3>
-          <Card className="divide-y divide-gray-100 p-0 overflow-hidden">
-            {meal.ingredients.map((ing, idx) => (
-              <div key={idx} className="flex justify-between items-center px-5 py-3">
-                <span className="font-bold text-sm text-gray-900">{ing.name}</span>
-                <span className="text-sm text-gray-400">
-                  {convertToPersianNumbers(ing.amount)} {ing.unit}
-                </span>
-              </div>
-            ))}
-          </Card>
-        </div>
-
-        {/* Steps */}
-        <div>
-          <h3 className="font-black text-base text-gray-900 mb-3">طرز تهیه</h3>
-          <div className="space-y-4">
-            {meal.steps.map((step, idx) => (
-              <div key={idx} className="flex gap-4 items-start py-3 border-b border-gray-100 last:border-none">
-                <div className="w-7 h-7 rounded-full bg-primary-100 text-primary-600 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  {convertToPersianNumbers(idx + 1)}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div className="xl:col-span-1">
+            <h3 className="font-black text-base text-gray-900 mb-3">مواد لازم</h3>
+            <Card className="divide-y divide-gray-100 p-0 overflow-hidden">
+              {meal.ingredients.map((ing, idx) => (
+                <div key={idx} className="flex justify-between items-center gap-4 px-5 py-3">
+                  <span className="font-bold text-sm text-gray-900">{ing.name}</span>
+                  <span className="text-sm text-gray-400 shrink-0">
+                    {convertToPersianNumbers(ing.amount)} {ing.unit}
+                  </span>
                 </div>
-                <p className="text-sm text-gray-700 leading-relaxed">{step}</p>
+              ))}
+            </Card>
+          </div>
+
+          <div className="xl:col-span-2">
+            <h3 className="font-black text-base text-gray-900 mb-3">طرز تهیه</h3>
+            <Card className="p-5">
+              <div className="space-y-4">
+                {meal.steps.map((step, idx) => (
+                  <div key={idx} className="flex gap-4 items-start py-3 border-b border-gray-100 last:border-none first:pt-0 last:pb-0">
+                    <div className="w-7 h-7 rounded-full bg-primary-100 text-primary-600 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+                      {convertToPersianNumbers(idx + 1)}
+                    </div>
+                    <p className="text-sm text-gray-700 leading-relaxed">{step}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </Card>
           </div>
         </div>
 
-        {/* Tips */}
         {meal.tips && (
           <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5">
             <div className="flex items-center gap-2 text-amber-800">
@@ -144,5 +151,5 @@ export default function MealDetail() {
         )}
       </div>
     </DashboardLayout>
-  )
+  );
 }

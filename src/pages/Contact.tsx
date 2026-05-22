@@ -5,13 +5,13 @@ import { Instagram, Phone, ChevronLeft } from "lucide-react";
 export default function Contact() {
   return (
     <DashboardLayout title="تماس با ما">
-      <div className="max-w-2xl mx-auto space-y-6 pb-20">
+      <div className="space-y-6 pb-20">
         <header className="py-2">
           <h1 className="text-2xl font-black text-gray-900">تماس با ما</h1>
           <p className="text-sm text-gray-500 mt-1">هر سوال یا پیشنهادی داری، خوشحال می‌شیم بشنویم</p>
         </header>
 
-        <main className="space-y-4">
+        <main className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <a 
             href="https://instagram.com/ghazetoo_app" 
             target="_blank" 
@@ -43,7 +43,7 @@ export default function Contact() {
             </Card>
           </a>
 
-          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 mt-4">
+          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 lg:col-span-2">
             <div className="flex items-center gap-2">
               <span className="text-lg">⏰</span>
               <h4 className="font-black text-sm text-amber-800">ساعات پاسخگویی</h4>

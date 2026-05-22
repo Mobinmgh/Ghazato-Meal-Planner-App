@@ -17,10 +17,10 @@ export default function Settings() {
 
   return (
     <DashboardLayout title="تنظیمات">
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="space-y-6">
         <h2 className="text-2xl font-black">تنظیمات</h2>
 
-        <section className="space-y-4">
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <Card className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50" onClick={() => navigate("/onboarding")}>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center text-gray-500">
@@ -81,7 +81,7 @@ export default function Settings() {
           </Link>
 
           <Link to="/contact">
-            <Card className="flex items-center justify-between p-4 md:hidden mt-4">
+            <Card className="flex items-center justify-between p-4 md:hidden">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-pink-100 flex items-center 
                   justify-center text-pink-600">

@@ -41,7 +41,7 @@ export const QUESTIONS = [
     subtitle: 'میانگین فعالیت روزانهتان را انتخاب کنید',
     type: 'options',
     options: [
-      { value: 'sedentary', label: 'کمتحرک', emoji: '🛋️', sub: 'بیشتر نشستهام' },
+      { value: 'sedentary', label: 'کم تحرک', emoji: '🛋️', sub: 'بیشتر نشسته ام' },
       { value: 'moderate', label: 'متوسط', emoji: '🚶', sub: 'کمی ورزش میکنم' },
       { value: 'active', label: 'فعال', emoji: '🏃', sub: 'ورزش منظم دارم' },
     ],
@@ -56,4 +56,4 @@ export const QUESTIONS = [
   },
 ];
 
-export const DAYS_OF_WEEK = ["شنبه", "یکشنبه", "دوشنبه", "سهشنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+export const DAYS_OF_WEEK = ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
